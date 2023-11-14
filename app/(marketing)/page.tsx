@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Medal } from "lucide-react";
+import { IconMedal } from "@tabler/icons-react";
 import Link from "next/link";
 import React from "react";
 import localFont from "next/font/local";
@@ -25,7 +25,7 @@ const MarketingPage = () => {
         )}
       >
         <div className="mb-4 flex items-center  shadow-sm p-4 bg-purple-200 text-fuchsia-800 rounded-full uppercase">
-          <Medal className="h-6 w-6 mr-2" />
+          <IconMedal className="h-6 w-6 mr-2" />
           No 1 in task management
         </div>
         <div className="mt-5 mb-2">
