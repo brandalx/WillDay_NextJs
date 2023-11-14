@@ -5,6 +5,7 @@ import React from "react";
 import localFont from "next/font/local";
 import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 const headingFont = localFont({
   src: "../../public/fonts/font.woff2",
 });
@@ -26,6 +27,9 @@ const MarketingPage = () => {
         <div className="mb-4 flex items-center  shadow-sm p-4 bg-purple-200 text-fuchsia-800 rounded-full uppercase">
           <Medal className="h-6 w-6 mr-2" />
           No 1 in task management
+        </div>
+        <div className="mt-5 mb-2">
+          <Image alt="logo" width={50} height={40} src="/logo.svg" />
         </div>
         <h1 className="text-3xl md:text-6xl text-center text-neutral-800 mb-6">
           Willday will help to organize
