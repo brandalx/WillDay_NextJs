@@ -7,11 +7,21 @@ import localFont from "next/font/local";
 const headingFont = localFont({
   src: "/../public/fonts/font.woff2",
 });
-const Logo = () => {
+
+interface ILogoProps {
+  type?: "outline" | "filled";
+}
+
+const Logo = ({ type = "outline" }: ILogoProps) => {
   return (
     <Link href="/">
       <div className="hover:opacity-75 transition items-center gap-x-2 hidden md:flex ">
-        <Image alt="Logo" src="/logo.svg" height={30} width={30} />
+        <Image
+          alt="Logo"
+          src={type === "filled" ? "/logo-filled.svg" : "/logo.svg"}
+          height={30}
+          width={30}
+        />
         <p
           className={cn("text-lg text-neutral-700 pb-1", headingFont.className)}
         >
