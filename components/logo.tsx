@@ -2,10 +2,10 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import { cn } from "@/lib/utils";
-import localFont from "next/dist/compiled/@next/font/dist/local";
+import localFont from "next/font/local";
 
 const headingFont = localFont({
-  src: "/public/fonts/font.woff2",
+  src: "/../public/fonts/font.woff2",
 });
 const Logo = () => {
   return (
