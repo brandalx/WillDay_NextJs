@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import OrgControl from "./_components/org-control";
 
