@@ -29,7 +29,7 @@ const MarketingPage = () => {
           No 1 in task management
         </div>
         <div className="mt-5 mb-2">
-          <Image alt="logo" width={50} height={40} src="/logo.svg" />
+          <Image alt="logo" width={50} height={40} src="/logo-filled.svg" />
         </div>
         <h1 className="text-3xl md:text-6xl text-center text-neutral-800 mb-6">
           Willday will help to organize
