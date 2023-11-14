@@ -4,7 +4,7 @@ import React, { ReactNode } from "react";
 const PlatformLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <ClerkProvider>
-      <div>{children}</div>
+      <div className="h-full">{children}</div>
     </ClerkProvider>
   );
 };

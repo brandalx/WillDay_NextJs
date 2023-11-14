@@ -13,7 +13,7 @@ const Navbar = () => {
           <Logo type="filled" />
         </div>
         <Button
-          variant="willday"
+          variant="primary"
           size="sm"
           className="rounded-sm hidden md:block h-auto py-1.5 px-2"
         >
@@ -21,7 +21,7 @@ const Navbar = () => {
         </Button>
 
         <Button
-          variant="willday"
+          variant="primary"
           size="sm"
           className="rounded-sm block md:hidden"
         >
@@ -30,6 +30,7 @@ const Navbar = () => {
       </div>
       <div className="ml-auto flex items-center gap-x-2 ">
         <OrganizationSwitcher
+          hidePersonal
           afterCreateOrganizationUrl="/organization/:id"
           afterLeaveOrganizationUrl="/select-org"
           afterSelectOrganizationUrl="/organization/:id"

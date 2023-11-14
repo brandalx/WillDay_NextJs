@@ -49,7 +49,7 @@ const MarketingPage = () => {
         productivity. From towering skyscrapers to the convenience of your home
         office, the way your team works is unique. Achieve it all with WillDay
       </div>
-      <Button className="mt-6 " size="lg" asChild>
+      <Button variant="primary" className="mt-6 " size="lg" asChild>
         <Link href="/sign-up">Get WillDay for free</Link>
       </Button>
     </div>
