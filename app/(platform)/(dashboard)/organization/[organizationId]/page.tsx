@@ -7,12 +7,12 @@ const OrganizationIdPage = () => {
     "use server";
 
     // console.log("triggered on server");
-    const title = formData.get("title") as string;
-    await db.board.create({
-      data: {
-        title,
-      },
-    });
+    // const title = formData.get("title") as string;
+    // await db.board.create({
+    //   data: {
+    //     title,
+    //   },
+    // });
   }
   //   console.log("I am logged in the browser");
 
