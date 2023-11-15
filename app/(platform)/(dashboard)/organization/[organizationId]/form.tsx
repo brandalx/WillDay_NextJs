@@ -2,10 +2,13 @@
 
 import { create } from "@/actions/create-board";
 import { Button } from "@/components/ui/button";
+import { useFormState } from "react-dom";
 
 export const Form = () => {
+  const initialState = { message: null, errors: {} };
+  const [state, dispatch] = useFormState(create, initialState);
   return (
-    <form action={create}>
+    <form action={dispatch}>
       <input
         id="title"
         name="title"
