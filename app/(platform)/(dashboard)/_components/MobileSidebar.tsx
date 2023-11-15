@@ -8,6 +8,8 @@ import { Sheet, SheetContent } from "@/components/ui/sheet";
 import Sidebar from "./sidebar";
 const MobileSidebar = () => {
   const pathname = usePathname();
+  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+
   const [isMounted, setIsMounted] = useState(false);
   const onOpen = useMobileSidebar((state) => state.onOpen);
   const onClose = useMobileSidebar((state) => state.onClose);
@@ -20,6 +22,24 @@ const MobileSidebar = () => {
   useEffect(() => {
     onClose();
   }, [pathname, onClose]);
+
+  const updateScreenWidth = () => {
+    setScreenWidth(window.innerWidth);
+  };
+
+  useEffect(() => {
+    window.addEventListener("resize", updateScreenWidth);
+
+    return () => {
+      window.removeEventListener("resize", updateScreenWidth);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (screenWidth >= 768 && isOpen) {
+      onClose();
+    }
+  }, [screenWidth, isOpen, onClose]);
 
   if (!isMounted) return null;
   return (
