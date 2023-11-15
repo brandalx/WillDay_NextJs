@@ -6,9 +6,11 @@ import { usePathname } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 import Sidebar from "./sidebar";
-const MobileSidebar = () => {
+export const MobileSidebar = () => {
   const pathname = usePathname();
-  const [screenWidth, setScreenWidth] = useState(window.innerWidth);
+  const [screenWidth, setScreenWidth] = useState(
+    typeof window !== "undefined" ? window.innerWidth : 0
+  );
 
   const [isMounted, setIsMounted] = useState(false);
   const onOpen = useMobileSidebar((state) => state.onOpen);
@@ -24,15 +26,17 @@ const MobileSidebar = () => {
   }, [pathname, onClose]);
 
   const updateScreenWidth = () => {
-    setScreenWidth(window.innerWidth);
+    setScreenWidth(typeof window !== "undefined" ? window.innerWidth : 0);
   };
 
   useEffect(() => {
-    window.addEventListener("resize", updateScreenWidth);
+    if (typeof window !== "undefined") {
+      window.addEventListener("resize", updateScreenWidth);
 
-    return () => {
-      window.removeEventListener("resize", updateScreenWidth);
-    };
+      return () => {
+        window.removeEventListener("resize", updateScreenWidth);
+      };
+    }
   }, []);
 
   useEffect(() => {
@@ -42,6 +46,7 @@ const MobileSidebar = () => {
   }, [screenWidth, isOpen, onClose]);
 
   if (!isMounted) return null;
+
   return (
     <>
       <Button
@@ -60,5 +65,3 @@ const MobileSidebar = () => {
     </>
   );
 };
-
-export default MobileSidebar;

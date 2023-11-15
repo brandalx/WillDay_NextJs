@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 import { IconPlus } from "@tabler/icons-react";
 import React from "react";
-import MobileSidebar from "./MobileSidebar";
+import { MobileSidebar } from "./MobileSidebar";
 
 const Navbar = () => {
   return (

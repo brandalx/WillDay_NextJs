@@ -8,7 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Accordion } from "@/components/ui/accordion";
-import NavItem, { Organization } from "./nav-item";
+import { Organization, NavItem } from "./nav-item";
 interface SidebarProps {
   storageKey?: string;
 }
@@ -45,30 +45,12 @@ const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
   if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
     return (
       <>
-        <div className="font-medium text-xs flex items-center mb-1 mt-4 ">
-          <Skeleton className="h-4 w-[250px] mr-2" />
-
-          <Skeleton className="h-6 w-6  rounded-full" />
+        <div className="flex items-center justify-between mb-2 mt-2">
+          <Skeleton className="h-6 w-[50%]" />
+          <Skeleton className="h-6 w-10 rounded" />
         </div>
-
-        <div className="font-medium text-xs   ">
-          <Skeleton className="h-[30px] w-[250px] mb-5 mt-4" />
-
-          <Skeleton className="h-5 w-[200px] my-4" />
-
-          <Skeleton className="h-5 w-[200px] my-4" />
-
-          <Skeleton className="h-5 w-[200px] my-4" />
-        </div>
-        <div className="font-medium text-xs   ">
-          <Skeleton className="h-[30px] w-[250px] mb-5 mt-4" />
-
-          <Skeleton className="h-5 w-[200px] my-4" />
-          <Skeleton className="h-5 w-[200px] my-4" />
-
-          <Skeleton className="h-5 w-[200px] my-4" />
-
-          <Skeleton className="h-5 w-[200px] my-4" />
+        <div className="space-y-2 ">
+          <NavItem.Skeleton /> <NavItem.Skeleton /> <NavItem.Skeleton />{" "}
         </div>
       </>
     );
