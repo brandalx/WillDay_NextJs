@@ -2,6 +2,7 @@
 import { z } from "zod";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export type State = {
   errors?: {
@@ -16,17 +17,33 @@ const CreateBoard = z.object({
     .min(3, { message: "Minimum length of 3 letters is required" }),
 });
 
-export async function create(formData: FormData) {
+export async function create(prevState: State, formData: FormData) {
   //   "use server";
-  const { title } = CreateBoard.parse({
+  const validatedFields = CreateBoard.safeParse({
     title: formData.get("title"),
   });
 
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing fields",
+    };
+  }
+
   console.log("triggered on server");
-  await db.board.create({
-    data: {
-      title,
-    },
-  });
+
+  const { title } = validatedFields.data;
+  try {
+    await db.board.create({
+      data: {
+        title,
+      },
+    });
+  } catch (error) {
+    return {
+      message: "Database error",
+    };
+  }
   revalidatePath("/organization/org_2YBgxpNANnjQS4dBLGTMhw8vFky");
+  redirect("/organization/org_2YBgxpNANnjQS4dBLGTMhw8vFky");
 }
