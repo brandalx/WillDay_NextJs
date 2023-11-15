@@ -45,7 +45,31 @@ const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
   if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
     return (
       <>
-        <Skeleton />
+        <div className="font-medium text-xs flex items-center mb-1 mt-4 ">
+          <Skeleton className="h-4 w-[250px] mr-2" />
+
+          <Skeleton className="h-6 w-6  rounded-full" />
+        </div>
+
+        <div className="font-medium text-xs   ">
+          <Skeleton className="h-[30px] w-[250px] mb-5 mt-4" />
+
+          <Skeleton className="h-5 w-[200px] my-4" />
+
+          <Skeleton className="h-5 w-[200px] my-4" />
+
+          <Skeleton className="h-5 w-[200px] my-4" />
+        </div>
+        <div className="font-medium text-xs   ">
+          <Skeleton className="h-[30px] w-[250px] mb-5 mt-4" />
+
+          <Skeleton className="h-5 w-[200px] my-4" />
+          <Skeleton className="h-5 w-[200px] my-4" />
+
+          <Skeleton className="h-5 w-[200px] my-4" />
+
+          <Skeleton className="h-5 w-[200px] my-4" />
+        </div>
       </>
     );
   }
