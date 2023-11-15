@@ -40,7 +40,31 @@ const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
       [id]: !expanded[id],
     }));
   };
-  return <div>Sidebar</div>;
+
+  if (!isLoadedOrg || !isLoadedOrgList || userMemberships.isLoading) {
+    return (
+      <>
+        <Skeleton />
+      </>
+    );
+  }
+  return (
+    <div className="font-medium text-xs flex items-center mb-1 ">
+      <span>Workspaces</span>
+
+      <Button
+        type="button"
+        size="icon"
+        variant="ghost"
+        className="ml-auto"
+        asChild
+      >
+        <Link href="/select-org">
+          <IconPlus className="h-4 w-4" />
+        </Link>
+      </Button>
+    </div>
+  );
 };
 
 export default Sidebar;
