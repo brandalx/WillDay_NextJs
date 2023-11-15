@@ -1,5 +1,6 @@
 // "use client";
 import { create } from "@/actions/create-board";
+import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import React from "react";
 
@@ -14,6 +15,7 @@ const OrganizationIdPage = () => {
           placeholder="Enter a board title"
           className="border-black border p-1"
         />
+        <Button type="submit">Submit</Button>
       </form>
     </div>
   );
