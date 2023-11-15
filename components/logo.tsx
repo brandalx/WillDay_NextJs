@@ -10,12 +10,13 @@ const headingFont = localFont({
 
 interface ILogoProps {
   type?: "outline" | "filled";
+  text?: boolean;
 }
 
-const Logo = ({ type = "outline" }: ILogoProps) => {
+const Logo = ({ type = "outline", text = true }: ILogoProps) => {
   return (
     <Link href="/">
-      <div className="hover:opacity-75 transition items-center gap-x-2 hidden md:flex ">
+      <div className="hover:opacity-75 transition items-center gap-x-2  md:flex ">
         <Image
           alt="Logo"
           src={type === "filled" ? "/logo-filled.svg" : "/logo.svg"}
@@ -25,7 +26,7 @@ const Logo = ({ type = "outline" }: ILogoProps) => {
         <p
           className={cn("text-lg text-neutral-700 pb-1", headingFont.className)}
         >
-          WillDay
+          {text && "WillDay"}
         </p>
       </div>
     </Link>

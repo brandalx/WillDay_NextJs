@@ -8,11 +8,15 @@ import { MobileSidebar } from "./MobileSidebar";
 const Navbar = () => {
   return (
     <nav className="fixed z-50 top-0 px-4 w-full h-14 border-b shadow-sm bg-white flex items-center">
+      <div className="block md:hidden mx-2">
+        <Logo text={false} type="filled" />
+      </div>
       <MobileSidebar />
       <div className="flex items-center gap-x-4">
         <div className="hidden md:flex">
           <Logo type="filled" />
         </div>
+
         <Button
           variant="primary"
           size="sm"
@@ -20,7 +24,6 @@ const Navbar = () => {
         >
           Create
         </Button>
-
         <Button
           variant="primary"
           size="sm"
