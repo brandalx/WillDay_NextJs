@@ -49,21 +49,33 @@ const Sidebar = ({ storageKey = "t-sidebar-state" }: SidebarProps) => {
     );
   }
   return (
-    <div className="font-medium text-xs flex items-center mb-1 ">
-      <span>Workspaces</span>
+    <>
+      <div className="font-medium text-xs flex items-center mb-1 ">
+        <span>Workspaces</span>
 
-      <Button
-        type="button"
-        size="icon"
-        variant="ghost"
-        className="ml-auto"
-        asChild
+        <Button
+          type="button"
+          size="icon"
+          variant="ghost"
+          className="ml-auto"
+          asChild
+        >
+          <Link href="/select-org">
+            <IconPlus className="h-4 w-4" />
+          </Link>
+        </Button>
+      </div>
+
+      <Accordion
+        type="multiple"
+        defaultValue={defaultAccordionValue}
+        className="space-y-2"
       >
-        <Link href="/select-org">
-          <IconPlus className="h-4 w-4" />
-        </Link>
-      </Button>
-    </div>
+        {userMemberships.data.map(({ organization }) => (
+          <p key={organization.id}>{organization.id}</p>
+        ))}
+      </Accordion>
+    </>
   );
 };
 
