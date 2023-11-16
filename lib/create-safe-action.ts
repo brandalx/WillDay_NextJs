@@ -21,5 +21,6 @@ export const createSafeAction = <TInput, TOutput>(
           .fieldErrors as FieldErrors<TInput>,
       };
     }
+    return handler(validationResult.data);
   };
 };
