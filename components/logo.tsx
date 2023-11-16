@@ -11,12 +11,18 @@ const headingFont = localFont({
 interface ILogoProps {
   type?: "outline" | "filled";
   text?: boolean;
+  isInLine?: boolean;
 }
 
-const Logo = ({ type = "outline", text = true }: ILogoProps) => {
+const Logo = ({ type = "outline", text = true, isInLine }: ILogoProps) => {
   return (
     <Link href="/">
-      <div className="hover:opacity-75 transition items-center gap-x-2  md:flex ">
+      <div
+        className={cn(
+          "hover:opacity-75 transition items-center gap-x-2  md:flex",
+          isInLine && "flex"
+        )}
+      >
         <Image
           alt="Logo"
           src={type === "filled" ? "/logo-filled.svg" : "/logo.svg"}
