@@ -10,7 +10,7 @@ import { CreateBoard } from "@/actions/create-board/schema";
 
 import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
-import React from "react";
+import React, { ElementRef, useRef } from "react";
 import { Button } from "../ui/button";
 import { IconLayoutBoardSplit, IconX } from "@tabler/icons-react";
 import { createBoard } from "@/actions/create-board";
@@ -32,10 +32,13 @@ const FormPopover = ({
   align,
   sideOffset = 0,
 }: FormPopoverProps) => {
+  const closeRef = useRef<ElementRef<"button">>(null);
   const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess: (data) => {
-      c({ data });
+      //   c({ data });
+
       toast.success("Board created");
+      closeRef.current?.click();
     },
     onError: (error) => {
       c({ error });
@@ -63,7 +66,7 @@ const FormPopover = ({
           <IconLayoutBoardSplit className="mr-1 h-4 w-4" />
           Create Board
         </div>
-        <PopoverClose asChild>
+        <PopoverClose ref={closeRef} asChild>
           <Button
             className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600 "
             variant="ghost"
