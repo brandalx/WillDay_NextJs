@@ -16,6 +16,7 @@ import { IconLayoutBoardSplit, IconX } from "@tabler/icons-react";
 import { createBoard } from "@/actions/create-board";
 import { c } from "@/lib/console-log";
 import { error } from "console";
+import { toast } from "sonner";
 
 interface FormPopoverProps {
   children: React.ReactNode;
@@ -33,9 +34,11 @@ const FormPopover = ({
   const { execute, fieldErrors } = useAction(createBoard, {
     onSuccess: (data) => {
       c({ data });
+      toast.success("Board created");
     },
     onError: (error) => {
       c({ error });
+      toast.error(error);
     },
   });
 
