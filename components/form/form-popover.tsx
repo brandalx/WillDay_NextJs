@@ -12,7 +12,7 @@ import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
 import React from "react";
 import { Button } from "../ui/button";
-import { IconX } from "@tabler/icons-react";
+import { IconLayoutBoardSplit, IconX } from "@tabler/icons-react";
 
 interface FormPopoverProps {
   children: React.ReactNode;
@@ -36,7 +36,8 @@ const FormPopover = ({
         side={side}
         sideOffset={sideOffset}
       >
-        <div className="text-sm font-medium text-center text-neutral-600 pb-4">
+        <div className="text-sm font-medium text-center text-neutral-600 pb-4 flex items-center justify-center ">
+          <IconLayoutBoardSplit className="mr-1 h-4 w-4" />
           Create Board
         </div>
         <PopoverClose asChild>
@@ -47,6 +48,17 @@ const FormPopover = ({
             <IconX className="h-4 w-4 " />
           </Button>
         </PopoverClose>
+        <form className="space-y-4">
+          <div className="space-y-4">
+            <FormInput
+              placeholder="Enter board name"
+              id="title"
+              label="Board Title"
+              type="text"
+            />
+          </div>
+          <FormSubmit className="w-full">Create</FormSubmit>
+        </form>
       </PopoverContent>
     </Popover>
   );
