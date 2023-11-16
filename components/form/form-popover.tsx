@@ -67,6 +67,7 @@ const FormPopover = ({
         <form action={onSubmit} className="space-y-4">
           <div className="space-y-4">
             <FormInput
+              errors={fieldErrors}
               placeholder="Enter board name"
               id="title"
               label="Board Title"
