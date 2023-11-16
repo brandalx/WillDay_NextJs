@@ -1,4 +1,5 @@
-import { IconUser } from "@tabler/icons-react";
+import Hint from "@/components/tooltip/hint";
+import { IconHelpCircle, IconUser } from "@tabler/icons-react";
 import React from "react";
 
 const BoardList = () => {
@@ -15,6 +16,12 @@ const BoardList = () => {
         >
           <p className="text-sm"> Create new board</p>
           <span className="text-xs">5 boards remaining</span>
+          <Hint
+            sideOffset={40}
+            description={`Free workspaces can have up to 5 open boards. For unlimited experience upgrade this workspace.`}
+          >
+            <IconHelpCircle className="absolute bottom-2 right-2 h-[14px] w-[14px]" />
+          </Hint>
         </div>
       </div>
     </div>
