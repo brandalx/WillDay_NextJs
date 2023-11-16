@@ -4,7 +4,7 @@ import { c } from "@/lib/console-log";
 import { cn } from "@/lib/utils";
 import { IconLoader2 } from "@tabler/icons-react";
 import Image from "next/image";
-
+import { defaultImages } from "@/constants/images";
 import { useEffect, useState } from "react";
 interface FormPickerProps {
   id: string;
@@ -36,7 +36,7 @@ const FormPicker = ({ id, errors }: FormPickerProps) => {
         }
       } catch (error) {
         c(error);
-        setimages([]);
+        setimages(defaultImages);
       } finally {
         setIsLoading(false);
       }
