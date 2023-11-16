@@ -13,6 +13,7 @@ interface FormPickerProps {
 
 import React from "react";
 import { useFormStatus } from "react-dom";
+import { FormErrors } from "./form-errors";
 
 const FormPicker = ({ id, errors }: FormPickerProps) => {
   const [images, setimages] = useState<Array<Record<string, any>>>([]);
@@ -66,6 +67,15 @@ const FormPicker = ({ id, errors }: FormPickerProps) => {
               setselectedImageId(image.id);
             }}
           >
+            <input
+              type="radio"
+              id={id}
+              name={id}
+              className="hidden"
+              checked={selectedImageId === image.id}
+              disabled={pending}
+              value={`${image.id}|${image.urls.thumb}|${image.urls.full}|${image.links.html}|${image.user.name}" `}
+            />
             <Image
               fill
               alt="Unsplash image"
@@ -80,6 +90,7 @@ const FormPicker = ({ id, errors }: FormPickerProps) => {
           </div>
         ))}
       </div>
+      <FormErrors id="image" errors={errors} />
     </div>
   );
 };
