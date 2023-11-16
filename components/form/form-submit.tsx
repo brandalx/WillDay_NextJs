@@ -18,3 +18,23 @@ interface FormSubmitProps {
     | "link"
     | "primary";
 }
+
+export const FormSubmit = ({
+  children,
+  disabled,
+  className,
+  variant,
+}: FormSubmitProps) => {
+  const { pending } = useFormStatus();
+  return (
+    <Button
+      disabled={pending || disabled}
+      type="submit"
+      variant={variant}
+      size="sm"
+      className={cn(className)}
+    >
+      {children}
+    </Button>
+  );
+};
