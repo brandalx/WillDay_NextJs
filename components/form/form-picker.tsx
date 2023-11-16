@@ -2,7 +2,7 @@
 import { unsplash } from "@/lib/api/unsplash";
 import { c } from "@/lib/console-log";
 import { cn } from "@/lib/utils";
-import { IconLoader2 } from "@tabler/icons-react";
+import { IconCheck, IconLoader2 } from "@tabler/icons-react";
 import Image from "next/image";
 import { defaultImages } from "@/constants/images";
 import { useEffect, useState } from "react";
@@ -72,6 +72,11 @@ const FormPicker = ({ id, errors }: FormPickerProps) => {
               className="object-cover rounded-sm"
               src={image.urls.thumb}
             />
+            {selectedImageId === image.id && (
+              <div className="absolute inset-y-0 h-full w-full bg-black/50 flex items-center justify-center">
+                <IconCheck className="h-4 w-4 text-white" />
+              </div>
+            )}
           </div>
         ))}
       </div>
