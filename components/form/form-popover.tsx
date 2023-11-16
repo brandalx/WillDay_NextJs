@@ -13,6 +13,9 @@ import { FormSubmit } from "./form-submit";
 import React from "react";
 import { Button } from "../ui/button";
 import { IconLayoutBoardSplit, IconX } from "@tabler/icons-react";
+import { createBoard } from "@/actions/create-board";
+import { c } from "@/lib/console-log";
+import { error } from "console";
 
 interface FormPopoverProps {
   children: React.ReactNode;
@@ -27,6 +30,14 @@ const FormPopover = ({
   align,
   sideOffset = 0,
 }: FormPopoverProps) => {
+  const { execute, fieldErrors } = useAction(createBoard, {
+    onSuccess: (data) => {
+      c({ data });
+    },
+    onError: (error) => {
+      c({ error });
+    },
+  });
   return (
     <Popover>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
