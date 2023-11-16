@@ -1,6 +1,7 @@
 "use client";
 
 import { createBoard } from "@/actions/create-board";
+import { FormInput } from "@/components/form/form-input";
 import { Button } from "@/components/ui/button";
 import { useAction } from "@/hooks/use-action";
 import { useFormState } from "react-dom";
@@ -20,14 +21,10 @@ export const Form = () => {
   };
   return (
     <form action={onSubmit}>
-      <input
-        id="title"
-        name="title"
-        required
-        placeholder="Enter a board title"
-        className="border-black border p-1"
-      />
-      <Button type="submit">Submit</Button>
+      <div className="flex flex-col space-y-2">
+        <FormInput label="Board Title" errors={fieldErrors} id={"title"} />
+        <Button type="submit">Submit</Button>
+      </div>
     </form>
   );
 };
