@@ -48,7 +48,7 @@ const FormPopover = ({
     const image = formData.get("image") as string;
     c({ image, title });
 
-    execute({ title });
+    execute({ title, image });
   };
   return (
     <Popover>
