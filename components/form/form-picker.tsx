@@ -1,6 +1,8 @@
 "use client";
 import { unsplash } from "@/lib/api/unsplash";
 import { c } from "@/lib/console-log";
+import { IconLoader2 } from "@tabler/icons-react";
+
 import { useEffect, useState } from "react";
 interface FormPickerProps {
   id: string;
@@ -8,9 +10,13 @@ interface FormPickerProps {
 }
 
 import React from "react";
+import { useFormStatus } from "react-dom";
 
 const FormPicker = ({ id, errors }: FormPickerProps) => {
   const [images, setimages] = useState<Array<Record<string, any>>>([]);
+  const { pending } = useFormStatus();
+  const [isLoading, setIsLoading] = useState(true);
+  const [selectedImageId, setselectedImageId] = useState(null);
 
   useEffect(() => {
     const fetchImages = async () => {
@@ -29,10 +35,21 @@ const FormPicker = ({ id, errors }: FormPickerProps) => {
       } catch (error) {
         c(error);
         setimages([]);
+      } finally {
+        setIsLoading(false);
       }
     };
+    fetchImages();
   }, []);
-  return <div>FormPicker</div>;
+
+  if (isLoading) {
+    return (
+      <div className="p-6 flex items-center justify-center">
+        <IconLoader2 className="h-6 w-6 text-sky-700 animate-spin  " />
+      </div>
+    );
+  }
+  return <div></div>;
 };
 
 export default FormPicker;
