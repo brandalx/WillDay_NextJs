@@ -1,3 +1,4 @@
+"use client";
 import { Button } from "@/components/ui/button";
 import { IconMedal } from "@tabler/icons-react";
 import Link from "next/link";
@@ -6,6 +7,8 @@ import localFont from "next/font/local";
 import { Poppins } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Image from "next/image";
+import { Typewriter } from "react-simple-typewriter";
+import Logo from "@/components/logo";
 const headingFont = localFont({
   src: "../../public/fonts/font.woff2",
 });
@@ -36,7 +39,30 @@ const MarketingPage = () => {
         </h1>
         <div className="text-3xl md:text-6xl bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-4 p-2 rounded mb pb-4 ">
           {" "}
-          your daily time work
+          <Typewriter
+            cursorBlinking={false}
+            words={[
+              "daily time work",
+              "team's collaboration",
+              "life, one task at a time",
+              "productivity",
+              "to-do list effortless",
+              "company's workflow",
+              "daily routine for success",
+              "time like a PRO",
+              "company's productivity",
+              "business tasks efficiently",
+              "work-life balance",
+              "work environment",
+              "time management journey",
+            ]}
+            loop
+            cursor={true}
+            cursorStyle=" •"
+            typeSpeed={40}
+            deleteSpeed={20}
+            delaySpeed={1000}
+          />
         </div>
       </div>
       <div
