@@ -17,6 +17,7 @@ import { createBoard } from "@/actions/create-board";
 import { c } from "@/lib/console-log";
 import { error } from "console";
 import { toast } from "sonner";
+import FormPicker from "./form-picker";
 
 interface FormPopoverProps {
   children: React.ReactNode;
@@ -69,6 +70,7 @@ const FormPopover = ({
         </PopoverClose>
         <form action={onSubmit} className="space-y-4">
           <div className="space-y-4">
+            <FormPicker id="image" errors={fieldErrors} />
             <FormInput
               errors={fieldErrors}
               placeholder="Enter board name"
