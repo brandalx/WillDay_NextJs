@@ -38,6 +38,11 @@ const FormPopover = ({
       c({ error });
     },
   });
+
+  const onSubmit = (formData: FormData) => {
+    const title = formData.get("title") as string;
+    execute({ title });
+  };
   return (
     <Popover>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
@@ -59,7 +64,7 @@ const FormPopover = ({
             <IconX className="h-4 w-4 " />
           </Button>
         </PopoverClose>
-        <form className="space-y-4">
+        <form action={onSubmit} className="space-y-4">
           <div className="space-y-4">
             <FormInput
               placeholder="Enter board name"
