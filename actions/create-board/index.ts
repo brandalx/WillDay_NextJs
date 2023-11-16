@@ -29,23 +29,26 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     !imageLinkHTML ||
     !imageThumbUrl
   )
-    try {
-      board = await db.board.create({
-        data: {
-          title,
-          orgId,
-          imageId,
-          imageFullUrl,
-          imageLinkHTML,
-          imageThumbUrl,
-          imageUserName,
-        },
-      });
-    } catch (error) {
-      return {
-        error: "Failed to create board",
-      };
-    }
+    return {
+      error: "Missing field. Failed to create board",
+    };
+  try {
+    board = await db.board.create({
+      data: {
+        title,
+        orgId,
+        imageId,
+        imageFullUrl,
+        imageLinkHTML,
+        imageThumbUrl,
+        imageUserName,
+      },
+    });
+  } catch (error) {
+    return {
+      error: "Failed to create board",
+    };
+  }
   revalidatePath(`/board/${board?.id}`);
   return { data: board };
 };

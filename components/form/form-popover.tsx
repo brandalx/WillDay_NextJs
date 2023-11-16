@@ -46,7 +46,7 @@ const FormPopover = ({
   const onSubmit = (formData: FormData) => {
     const title = formData.get("title") as string;
     const image = formData.get("image") as string;
-    c({ image, title });
+    // c({ image, title });
 
     execute({ title, image });
   };
