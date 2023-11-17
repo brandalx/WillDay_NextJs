@@ -1,13 +1,42 @@
 "use client";
 
+import { FormInput } from "@/components/form/form-input";
 import { Button } from "@/components/ui/button";
 import { Board } from "@prisma/client";
+import { ElementRef, useRef, useState } from "react";
 interface BoardTitleFormProps {
   data: Board;
 }
 export const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
+  const formRef = useRef<ElementRef<"form">>(null);
+
+  const inputRef = useRef<ElementRef<"form">>(null);
+  const [isEditing, setIsEditing] = useState(false);
+
+  const disableEditing = () => {
+    setIsEditing(false);
+  };
+
+  const enableEditing = () => {
+    //todo:" focus input"
+    setIsEditing(true);
+  };
+
+  if (isEditing) {
+    return (
+      <form>
+        <FormInput
+          id="title"
+          onBlur={() => {}}
+          defaultValue={data.title}
+          className="text-lg font-bold px-[7px] py-1 h-7 bg-transparent focus-visible:outline-none focus-visible:ring-transparent border-none"
+        />
+      </form>
+    );
+  }
   return (
     <Button
+      onClick={enableEditing}
       variant="transparent"
       className="font-bold text-lg h-auto w-auto p-1 px-2"
     >
