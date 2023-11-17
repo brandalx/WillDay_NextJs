@@ -1,5 +1,13 @@
 "use client";
-
+import { IconPlus } from "@tabler/icons-react";
+import ListWrapper from "./list-wrapper";
 export const ListForm = () => {
-  return <div>List Form</div>;
+  return (
+    <ListWrapper>
+      <button className="w-full rounded-md bg-white/80 hover:bg-white/50 transition p-3 flex items-center font-medium text-sm">
+        <IconPlus className="h-4 w-4 mr-2" />
+        Add list
+      </button>
+    </ListWrapper>
+  );
 };
