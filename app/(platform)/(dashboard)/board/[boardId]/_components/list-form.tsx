@@ -2,6 +2,7 @@
 import { IconPlus } from "@tabler/icons-react";
 import ListWrapper from "./list-wrapper";
 import { useState, useRef, ElementRef } from "react";
+import { useEventListener } from "usehooks-ts";
 export const ListForm = () => {
   const { isEditing, setIsEditing } = useState(false);
   const formRef = useRef<ElementRef<"form">>(null);
@@ -18,6 +19,14 @@ export const ListForm = () => {
   const disableEditing = () => {
     setIsEditing(false);
   };
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      disableEditing();
+    }
+  };
+
+  useEventListener("keydown", onKeyDown);
 
   return (
     <ListWrapper>
