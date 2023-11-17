@@ -32,13 +32,17 @@ export const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
     c("submitted" + title);
   };
 
+  const onBlur = () => {
+    formRef.current?.requestSubmit();
+  };
+
   if (isEditing) {
     return (
       <form action={onSubmit} ref={formRef}>
         <FormInput
           ref={inputRef}
           id="title"
-          onBlur={() => {}}
+          onBlur={onBlur}
           defaultValue={data.title}
           className="text-lg font-bold px-[7px] py-1 h-7 bg-transparent focus-visible:outline-none focus-visible:ring-transparent border-none"
         />
