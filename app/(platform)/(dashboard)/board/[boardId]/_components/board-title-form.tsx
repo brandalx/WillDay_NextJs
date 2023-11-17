@@ -10,7 +10,7 @@ interface BoardTitleFormProps {
 export const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
   const formRef = useRef<ElementRef<"form">>(null);
 
-  const inputRef = useRef<ElementRef<"form">>(null);
+  const inputRef = useRef<ElementRef<"input">>(null);
   const [isEditing, setIsEditing] = useState(false);
 
   const disableEditing = () => {
@@ -20,12 +20,17 @@ export const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
   const enableEditing = () => {
     //todo:" focus input"
     setIsEditing(true);
+    setTimeout(() => {
+      inputRef.current?.focus();
+      inputRef.current?.select();
+    });
   };
 
   if (isEditing) {
     return (
-      <form>
+      <form ref={formRef}>
         <FormInput
+          ref={inputRef}
           id="title"
           onBlur={() => {}}
           defaultValue={data.title}
