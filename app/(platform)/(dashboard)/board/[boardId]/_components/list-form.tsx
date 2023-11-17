@@ -1,10 +1,14 @@
 "use client";
-import { IconPlus } from "@tabler/icons-react";
+import { IconPlus, IconX } from "@tabler/icons-react";
 import ListWrapper from "./list-wrapper";
 import { useState, useRef, ElementRef } from "react";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 import { FormInput } from "@/components/form/form-input";
+import { useParams } from "next/navigation";
+import { FormSubmit } from "@/components/form/form-submit";
+import { Button } from "@/components/ui/button";
 export const ListForm = () => {
+  const params = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const formRef = useRef<ElementRef<"form">>(null);
   const inputRef = useRef<ElementRef<"input">>(null);
@@ -43,6 +47,13 @@ export const ListForm = () => {
             className="text-sm px-2 py-1 h-7 font-medium border-transparent hover:border-input focus:border-input transition-all"
             placeholder="Enter list title"
           />
+          <input hidden value={params.boardId} name="boardId" />
+          <div className="flex items-center gap-x-1  ">
+            <FormSubmit>Add list</FormSubmit>
+            <Button size="sm" variant="ghost" onClick={disableEditing}>
+              <IconX className="h-5 w-5" />
+            </Button>
+          </div>
         </form>
       </ListWrapper>
     );
