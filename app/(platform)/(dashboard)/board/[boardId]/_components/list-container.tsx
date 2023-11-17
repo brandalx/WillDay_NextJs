@@ -8,10 +8,15 @@ interface ListContainerProps {
   boardId: string;
 }
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { ListForm } from "./list-form";
 
 const ListContainer = ({ data, boardId }: ListContainerProps) => {
+  const [orderedData, setOrderedData] = useState(data);
+
+  useEffect(() => {
+    setOrderedData(data);
+  }, [data]);
   return (
     <ol>
       <ListForm />
