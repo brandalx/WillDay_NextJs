@@ -19,7 +19,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   let list;
 
   try {
-    list = await db.board.list({
+    list = await db.list.update({
       where: {
         id,
         boardId,
@@ -41,4 +41,4 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   return { data: list };
 };
 
-export const updateBoard = createSafeAction(UpdateList, handler);
+export const updateList = createSafeAction(UpdateList, handler);

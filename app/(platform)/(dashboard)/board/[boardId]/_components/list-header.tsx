@@ -4,6 +4,9 @@ import { List } from "@prisma/client";
 import React from "react";
 import { useEventListener } from "usehooks-ts";
 import { FormInput } from "@/components/form/form-input";
+import { useAction } from "@/hooks/use-action";
+import { updateList } from "@/actions/update-list";
+
 interface ListHeaderProps {
   data: List;
 }
@@ -25,6 +28,7 @@ const ListHeader = ({ data }: ListHeaderProps) => {
   const disableEditing = () => {
     setIsEditing(false);
   };
+  const {} = useAction(updateList);
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
       formRef.current?.requestSubmit();
