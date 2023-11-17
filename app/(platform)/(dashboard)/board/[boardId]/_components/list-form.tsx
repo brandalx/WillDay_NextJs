@@ -4,15 +4,20 @@ import ListWrapper from "./list-wrapper";
 import { useState, useRef, ElementRef } from "react";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
 import { FormInput } from "@/components/form/form-input";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { FormSubmit } from "@/components/form/form-submit";
+import { useAction } from "@/hooks/use-action";
+import { createList } from "@/actions/create-list";
 import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import { error } from "console";
+import { c } from "@/lib/console-log";
 export const ListForm = () => {
   const params = useParams();
   const [isEditing, setIsEditing] = useState(false);
   const formRef = useRef<ElementRef<"form">>(null);
   const inputRef = useRef<ElementRef<"input">>(null);
-
+  const router = useRouter();
   const enableEditing = () => {
     setIsEditing(true);
     setTimeout(() => {
@@ -22,6 +27,24 @@ export const ListForm = () => {
 
   const disableEditing = () => {
     setIsEditing(false);
+  };
+
+  const { execute, fieldErrors } = useAction(createList, {
+    onSuccess: (data: any) => {
+      toast.success(`List "${data.title}" created`);
+      disableEditing();
+      router.refresh();
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const onSubmit = (formData: FormData) => {
+    const title = formData.get("title") as string;
+
+    const boardId = formData.get("boardId") as string;
+    execute({ title, boardId });
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
@@ -38,16 +61,18 @@ export const ListForm = () => {
     return (
       <ListWrapper>
         <form
+          action={onSubmit}
           ref={formRef}
           className="w-full p-3 rounded-md bg-white space-y-4 shadow-md "
         >
           <FormInput
+            errors={fieldErrors}
             ref={inputRef}
             id="title"
             className="text-sm px-2 py-1 h-7 font-medium border-transparent hover:border-input focus:border-input transition-all"
             placeholder="Enter list title"
           />
-          <input hidden value={params.boardId} name="boardId" />
+          <input hidden defaultValue={params.boardId} name="boardId" />
           <div className="flex items-center gap-x-1  ">
             <FormSubmit>Add list</FormSubmit>
             <Button size="sm" variant="ghost" onClick={disableEditing}>
