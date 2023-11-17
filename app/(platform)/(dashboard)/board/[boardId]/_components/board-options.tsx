@@ -33,6 +33,13 @@ const BoardOptions = ({ id }: BoardOptionsProps) => {
             <IconX className="h-4 w-4" />
           </Button>
         </PopoverClose>
+        <Button
+          variant="ghost"
+          onClick={() => {}}
+          className="rounded-sm w-full h-auto p-2 px-5 justify-start font-normal text-sm"
+        >
+          Delete this board
+        </Button>
       </PopoverContent>
     </Popover>
   );
