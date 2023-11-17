@@ -9,9 +9,15 @@ interface ListContainerProps {
 }
 
 import React from "react";
+import { ListForm } from "./list-form";
 
 const ListContainer = ({ data, boardId }: ListContainerProps) => {
-  return <div>ListContainer</div>;
+  return (
+    <ol>
+      <ListForm />
+      <div className="flex-shrink-0 w-1" />
+    </ol>
+  );
 };
 
 export default ListContainer;
