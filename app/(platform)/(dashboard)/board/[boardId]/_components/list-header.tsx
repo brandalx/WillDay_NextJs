@@ -2,6 +2,7 @@
 import { useState, useRef, ElementRef } from "react";
 import { List } from "@prisma/client";
 import React from "react";
+import { useEventListener } from "usehooks-ts";
 interface ListHeaderProps {
   data: List;
 }
@@ -20,11 +21,28 @@ const ListHeader = ({ data }: ListHeaderProps) => {
     });
   };
 
+  const disableEditing = () => {
+    setIsEditing(false);
+  };
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      formRef.current?.requestSubmit();
+    }
+  };
+  useEventListener("keydown", onKeyDown);
+
   return (
     <div className="pt-2 px-2 text-sm font-semibold flex justify-between items-start gap-x-2">
-      <div className="w-full text-sm px-2.5 py-1 h-7 font-medium border-transparent ">
-        {data.title}
-      </div>
+      {isEditing ? (
+        <p>Form</p>
+      ) : (
+        <div
+          onClick={enableEditing}
+          className="w-full text-sm px-2.5 py-1 h-7 font-medium border-transparent "
+        >
+          {data.title}
+        </div>
+      )}
     </div>
   );
 };
