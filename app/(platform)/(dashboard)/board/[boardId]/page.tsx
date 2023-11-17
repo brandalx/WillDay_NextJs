@@ -2,6 +2,7 @@ import React from "react";
 import { auth } from "@clerk/nextjs";
 import { db } from "@/lib/db";
 import { redirect } from "next/navigation";
+import ListContainer from "./_components/list-container";
 interface BoardIdPageProps {
   params: {
     boardId: string;
@@ -30,7 +31,11 @@ const BoardIdPage = async ({ params }: BoardIdPageProps) => {
       order: "asc",
     },
   });
-  return <div>BoardIdPage</div>;
+  return (
+    <div className="p-4 h-full overflow-x-auto">
+      <ListContainer boardId={params.boardId} data={lists} />
+    </div>
+  );
 };
 
 export default BoardIdPage;
