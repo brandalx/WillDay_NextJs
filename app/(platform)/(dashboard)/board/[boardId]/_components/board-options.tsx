@@ -1,7 +1,9 @@
 "use client";
 import React from "react";
-
-const BoardOptions = () => {
+interface BoardOptionsProps {
+  id: string;
+}
+const BoardOptions = ({ id }: BoardOptionsProps) => {
   return <div>BoardOptions</div>;
 };
 
