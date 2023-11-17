@@ -6,6 +6,7 @@ import { useEventListener } from "usehooks-ts";
 import { FormInput } from "@/components/form/form-input";
 import { useAction } from "@/hooks/use-action";
 import { updateList } from "@/actions/update-list";
+import { toast } from "sonner";
 
 interface ListHeaderProps {
   data: List;
@@ -28,7 +29,27 @@ const ListHeader = ({ data }: ListHeaderProps) => {
   const disableEditing = () => {
     setIsEditing(false);
   };
-  const {} = useAction(updateList);
+  const { execute } = useAction(updateList, {
+    onSuccess: (data: any) => {
+      toast.success(`Renamed to "${data.title}"`);
+      setTitle(data.title);
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const handleSubmit = (formData: FormData) => {
+    const title = formData.get("title") as string;
+
+    const id = formData.get("id") as string;
+    const boardId = formData.get("boardId") as string;
+    if (title === data.title) {
+      return disableEditing();
+    }
+    execute({ title, id, boardId });
+  };
+
   const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
       formRef.current?.requestSubmit();
