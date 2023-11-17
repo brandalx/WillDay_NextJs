@@ -5,6 +5,8 @@ import { InputType } from "../update-board/types";
 import { c } from "@/lib/console-log";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
+import { createSafeAction } from "@/lib/create-safe-action";
+import { UpdateBoard } from "./schema";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -35,3 +37,5 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   revalidatePath(`/board/${id}`);
   return { data: board };
 };
+
+export const updateBoard = createSafeAction(UpdateBoard, handler);
