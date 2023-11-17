@@ -8,12 +8,20 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-
+import { deleteBoard } from "@/actions/delete-board";
+import { useAction } from "@/hooks/use-action";
 import { IconDots, IconX } from "@tabler/icons-react";
+import { error } from "console";
+import { toast } from "sonner";
 interface BoardOptionsProps {
   id: string;
 }
 const BoardOptions = ({ id }: BoardOptionsProps) => {
+  const { execute, isLoading } = useAction(deleteBoard, {
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
   return (
     <Popover>
       <PopoverTrigger asChild>
