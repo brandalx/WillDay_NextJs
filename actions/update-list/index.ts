@@ -1,12 +1,12 @@
 "use server";
 
 import { auth } from "@clerk/nextjs";
-import { InputType } from "../update-board/types";
+import { InputType } from "./types";
 import { c } from "@/lib/console-log";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { UpdateBoard } from "./schema";
+import { UpdateList } from "./schema";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -15,14 +15,17 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       error: "Unauthorized",
     };
   }
-  const { title, id } = data;
-  let board;
+  const { title, id, boardId } = data;
+  let list;
 
   try {
-    board = await db.board.update({
+    list = await db.board.list({
       where: {
         id,
-        orgId,
+        boardId,
+        board: {
+          orgId,
+        },
       },
       data: {
         title,
@@ -34,8 +37,8 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       error: "failed to update",
     };
   }
-  revalidatePath(`/board/${id}`);
-  return { data: board };
+  revalidatePath(`/board/${boardId}`);
+  return { data: list };
 };
 
-export const updateBoard = createSafeAction(UpdateBoard, handler);
+export const updateBoard = createSafeAction(UpdateList, handler);
