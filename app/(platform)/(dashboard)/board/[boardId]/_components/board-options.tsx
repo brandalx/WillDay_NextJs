@@ -21,6 +21,9 @@ const BoardOptions = ({ id }: BoardOptionsProps) => {
     onError: (error) => {
       toast.error(error);
     },
+    onSuccess: () => {
+      toast.success("Board successfully deleted");
+    },
   });
 
   const onDelete = () => {
