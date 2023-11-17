@@ -1,12 +1,13 @@
 "use server";
 
 import { auth } from "@clerk/nextjs";
-import { InputType } from "../update-board/types";
+import { InputType } from "./types";
 import { c } from "@/lib/console-log";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { UpdateBoard } from "./schema";
+import { DeleteBoard } from "./schema";
+import { redirect } from "next/navigation";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -15,27 +16,24 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       error: "Unauthorized",
     };
   }
-  const { title, id } = data;
+  const { id } = data;
   let board;
 
   try {
-    board = await db.board.update({
+    board = await db.board.delete({
       where: {
         id,
         orgId,
-      },
-      data: {
-        title,
       },
     });
   } catch (error) {
     c(error);
     return {
-      error: "failed to update",
+      error: "failed to delete",
     };
   }
-  revalidatePath(`/board/${id}`);
-  return { data: board };
+  revalidatePath(`/organization/${orgId}`);
+  redirect(`/organization/${orgId}`);
 };
 
-export const updateBoard = createSafeAction(UpdateBoard, handler);
+export const deleteBoard = createSafeAction(DeleteBoard, handler);
