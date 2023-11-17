@@ -2,6 +2,7 @@
 
 import { FormInput } from "@/components/form/form-input";
 import { Button } from "@/components/ui/button";
+import { c } from "@/lib/console-log";
 import { Board } from "@prisma/client";
 import { ElementRef, useRef, useState } from "react";
 interface BoardTitleFormProps {
@@ -26,9 +27,14 @@ export const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
     });
   };
 
+  const onSubmit = (formData: FormData) => {
+    const title = formData.get("title") as string;
+    c("submitted" + title);
+  };
+
   if (isEditing) {
     return (
-      <form ref={formRef}>
+      <form action={onSubmit} ref={formRef}>
         <FormInput
           ref={inputRef}
           id="title"
@@ -39,6 +45,7 @@ export const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
       </form>
     );
   }
+
   return (
     <Button
       onClick={enableEditing}
