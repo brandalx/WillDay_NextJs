@@ -7,7 +7,7 @@ import { MobileSidebar } from "./MobileSidebar";
 import FormPopover from "@/components/form/form-popover";
 const Navbar = () => {
   return (
-    <nav className="fixed z-50 top-0 px-4 w-full h-14 border-b shadow-sm bg-white flex items-center">
+    <nav className="fixed z-50 top-0 px-4 w-full h-14 border-b shadow-sm bg-white flex items-center rounded-b-lg">
       <div className="block md:hidden mx-2">
         <Logo text={false} type="filled" />
       </div>

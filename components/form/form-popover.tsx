@@ -65,7 +65,7 @@ const FormPopover = ({
         side={side}
         sideOffset={sideOffset}
       >
-        <div className="text-sm font-medium text-center text-neutral-600 pb-4 flex items-center justify-center ">
+        <div className="text-sm font-medium text-center text-neutral-600 pb-4 flex items-center justify-center">
           <IconLayoutBoardSplit className="mr-1 h-4 w-4" />
           Create Board
         </div>
