@@ -6,7 +6,7 @@ import { c } from "@/lib/console-log";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { CreateList } from "./schema";
+import { CreateCard } from "./schema";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -15,37 +15,26 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       error: "Unauthorized",
     };
   }
-  const { title, boardId } = data;
-  let list;
+  const { title, boardId, listId } = data;
+  let card;
 
   try {
-    const board = await db.board.findUnique({
+    const list = await db.list.findUnique({
       where: {
-        id: boardId,
-        orgId,
+        id: listId,
+        board: {
+          orgId,
+        },
       },
     });
+    if (!list) return { error: "List not found" };
 
-    if (!board) {
-      return {
-        error: "Board not found",
-      };
-    }
-
-    const lastList = await db.list.findFirst({
-      where: { boardId: boardId },
+    const lastCard = await db.card.findFirst({
+      where: {
+        listId,
+      },
       orderBy: { order: "desc" },
       select: { order: true },
-    });
-
-    const newOrder = lastList ? lastList.order + 1 : 1;
-
-    list = await db.list.create({
-      data: {
-        title,
-        boardId,
-        order: newOrder,
-      },
     });
   } catch (error) {
     c(error);
@@ -57,4 +46,4 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   return { data: list };
 };
 
-export const createList = createSafeAction(CreateList, handler);
+export const createCard = createSafeAction(CreateCard, handler);
