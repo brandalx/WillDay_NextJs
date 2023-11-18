@@ -1,7 +1,20 @@
+"use client";
 import { OrganizationProfile } from "@clerk/nextjs";
-import React from "react";
+import React, { useEffect } from "react";
 
 const SettingsPage = () => {
+  useEffect(() => {
+    const deleteDivWithDelay = () => {
+      setTimeout(() => {
+        const divToDelete = document.querySelector(".cl-internal-b3fm6y");
+        if (divToDelete) {
+          divToDelete.remove();
+        }
+      }, 1000);
+    };
+
+    deleteDivWithDelay();
+  }, []);
   return (
     <div className="w-full">
       <OrganizationProfile
@@ -24,3 +37,7 @@ const SettingsPage = () => {
 };
 
 export default SettingsPage;
+
+// cl-userButtonPopoverFooter 🔒️ cl-internal-uyu30o
+
+// cl-organizationSwitcherPopoverFooter 🔒️ cl-internal-uyu30o

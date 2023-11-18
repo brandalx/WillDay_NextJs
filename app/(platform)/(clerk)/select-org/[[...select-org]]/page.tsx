@@ -1,8 +1,21 @@
+"use client";
 import { OrganizationList } from "@clerk/nextjs";
 
-import React from "react";
+import React, { useEffect } from "react";
 
 const CreateOrganizationPage = () => {
+  useEffect(() => {
+    const deleteDivWithDelay = () => {
+      setTimeout(() => {
+        const divToDelete = document.querySelector(".cl-internal-b3fm6y");
+        if (divToDelete) {
+          divToDelete.remove();
+        }
+      }, 1000);
+    };
+
+    deleteDivWithDelay();
+  }, []);
   return (
     <OrganizationList
       hidePersonal
