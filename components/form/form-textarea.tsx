@@ -19,6 +19,7 @@ interface FormTextAreaProps {
 import React from "react";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
+import { cn } from "@/lib/utils";
 
 export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
   (
@@ -48,7 +49,20 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
               {label}
             </Label>
           ) : null}
-          <Textarea />
+          <Textarea
+            id={id}
+            placeholder={placeholder}
+            required={required}
+            disabled={disabled}
+            onBlur={onBlur}
+            onClick={onClick}
+            onKeyDown={onKeyDown}
+            defaultValue={defaultValue}
+            className={cn(
+              "resize-none focus-visible:ring-0 focus-visible:ring-offset-0 ring-0 focus:ring-0 outline-none shadow-sm"
+            )}
+            aria-describedby={`${id}-error`}
+          />
         </div>
       </div>
     );
