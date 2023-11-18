@@ -7,6 +7,7 @@ import { createCard } from "@/actions/create-card";
 import { Button } from "@/components/ui/button";
 import { IconPlus, IconX } from "@tabler/icons-react";
 import { useParams } from "next/navigation";
+import { useOnClickOutside, useEventListener } from "usehooks-ts";
 import React, {
   forwardRef,
   useRef,
@@ -29,6 +30,17 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
         disableEditing();
       }
     };
+    useOnClickOutside(formRef, disableEditing);
+    useEventListener("keydown", onKeyDown);
+    const onTextAreaKeyDown: KeyboardEventHandler<HTMLTextAreaElement> = (
+      e
+    ) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        formRef.current?.requestSubmit();
+      }
+    };
+
     if (isEditing) {
       return (
         <form className="m-1 py-0.5 px-1 space-y-4">
