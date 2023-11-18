@@ -8,6 +8,7 @@ import { useAction } from "@/hooks/use-action";
 import { updateList } from "@/actions/update-list";
 import { toast } from "sonner";
 import ListOptions from "./list-options";
+import { IconFileInvoice, IconFileSmile } from "@tabler/icons-react";
 
 interface ListHeaderProps {
   data: List;

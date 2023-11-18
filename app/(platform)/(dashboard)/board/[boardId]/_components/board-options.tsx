@@ -72,5 +72,3 @@ const BoardOptions = ({ id }: BoardOptionsProps) => {
 };
 
 export default BoardOptions;
-
-// arrow - autofit - left;
