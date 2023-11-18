@@ -36,6 +36,9 @@ export const Header = ({ data }: HeaderProps) => {
             id="title"
           />
         </form>
+        <p className="text-sm text-muted-foreground ">
+          In ist <span className="underline">{data.list.title}</span>
+        </p>
       </div>
     </div>
   );

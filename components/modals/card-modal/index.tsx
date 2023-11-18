@@ -18,8 +18,6 @@ export const CardModal = () => {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         {!cardData ? <Header.Skeleton /> : <Header data={cardData} />}
-
-        {cardData?.title}
       </DialogContent>
     </Dialog>
   );
