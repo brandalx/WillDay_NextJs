@@ -19,6 +19,10 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   let list;
 
   try {
+    console.log("incoming id: " + id);
+    console.log("incoming boardId: " + boardId);
+
+    console.log("incoming orgId: " + orgId);
     list = await db.list.delete({
       where: {
         id,
@@ -29,6 +33,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
     });
   } catch (error) {
+    c("ekekek");
     c(error);
     return {
       error: "failed to delete",

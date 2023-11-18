@@ -39,6 +39,12 @@ const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
     },
   });
 
+  const onDelete = (formData: FormData) => {
+    const id = formData.get("id") as string;
+    const boardId = formData.get("boardId") as string;
+    executeDelete({ id, boardId });
+  };
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -69,7 +75,12 @@ const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
         </Button>
         <form>
           <input hidden name="id" id="id" defaultValue={data.id} />
-          <input hidden name="boardId" id="boardId" defaultValue={data.id} />
+          <input
+            hidden
+            name="boardId"
+            id="boardId"
+            defaultValue={data.boardId}
+          />
           <FormSubmit
             className="rounded-sm w-full h-auto  p-2 px-5 justify-start font-normal text-sm flex"
             variant="ghost"
@@ -79,9 +90,14 @@ const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
           </FormSubmit>
         </form>
         <Separator className="my-2" />
-        <form>
+        <form action={onDelete}>
           <input hidden name="id" id="id" defaultValue={data.id} />
-          <input hidden name="boardId" id="boardId" defaultValue={data.id} />
+          <input
+            hidden
+            name="boardId"
+            id="boardId"
+            defaultValue={data.boardId}
+          />
           <FormSubmit
             className="  rounded-sm  w-full h-auto  p-2 px-5  justify-start font-normal text-sm flex  hover:bg-rose-300 bg-rose-500"
             variant="destructive"
