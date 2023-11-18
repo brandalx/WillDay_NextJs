@@ -25,14 +25,17 @@ import { Separator } from "@/components/ui/separator";
 import { deleteList } from "@/actions/delete-list";
 import { toast } from "sonner";
 import { error } from "console";
+import { ElementRef, useRef } from "react";
 interface ListOptionsProps {
   data: List;
   onAddCard: () => void;
 }
 const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
+  const closeRef = useRef<ElementRef<"button">>(null);
   const { execute: executeDelete } = useAction(deleteList, {
     onSuccess: () => {
       toast.success(`List "${data.title}" deleted successfully`);
+      closeRef.current?.click();
     },
     onError: (error) => {
       toast.error(error);
@@ -57,7 +60,7 @@ const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
           <IconChecklist className="h-4 w-4 mr-1 text-[#FF87AB] " />
           List actions
         </div>
-        <PopoverClose asChild>
+        <PopoverClose ref={closeRef} asChild>
           <Button
             className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600"
             variant="ghost"
