@@ -6,7 +6,14 @@ interface CardItemProps {
   data: Card;
 }
 const CardItem = ({ data, index }: CardItemProps) => {
-  return <div>{data.title}</div>;
+  return (
+    <div
+      role="button"
+      className="truncate border-2 border-transparent hover:border-neutral-700 transition-all py-2 px-3 text-sm bg-white rounded-md shadow-sm "
+    >
+      {data.title}
+    </div>
+  );
 };
 
 export default CardItem;
