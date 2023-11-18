@@ -30,6 +30,7 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
       onSuccess: (data: any) => {
         toast.success(`Card "${data.title}" created`);
         formRef.current?.reset();
+        disableEditing();
       },
       onError: (error) => {
         toast.error(error);
@@ -54,8 +55,8 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
     const onSubmit = (formData: FormData) => {
       const title = formData.get("title") as string;
       const listId = formData.get("listId") as string;
-      const boardId = formData.get("boardId") as string;
-
+      const boardId = params.boardId as string;
+      console.log({ title, listId, boardId });
       execute({ title, listId, boardId });
     };
 
@@ -73,7 +74,7 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
             placeholder="Enter a title for this card..."
             errors={fieldErrors}
           />
-          <input hidden id="listId" name="lisyId" value={listId} />
+          <input hidden id="listId" name="listId" defaultValue={listId} />
           <div className="flex items-center gap-x-1 ">
             <FormSubmit>
               <IconPlus className="h-4 w-4 mr-2 " />

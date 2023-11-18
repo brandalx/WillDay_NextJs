@@ -53,6 +53,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
             </Label>
           ) : null}
           <Textarea
+            name={id}
             id={id}
             placeholder={placeholder}
             required={required}
