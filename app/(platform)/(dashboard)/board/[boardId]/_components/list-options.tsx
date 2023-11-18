@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
 import { IconDots, IconX } from "@tabler/icons-react";
+import { FormSubmit } from "@/components/form/form-submit";
 interface ListOptionsProps {
   data: List;
   onAddCard: () => void;
@@ -34,6 +35,23 @@ const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
             <IconX className="h-4 w-4 " />
           </Button>
         </PopoverClose>
+        <Button
+          onClick={onAddCard}
+          className="rounded-none w-full h-auto  p-2 px-5 justify-start font-normal text-sm"
+          variant="ghost"
+        >
+          Add card
+        </Button>
+        <form>
+          <input hidden name="id" id="id" defaultValue={data.id} />
+          <input hidden name="boardId" id="boardId" defaultValue={data.id} />
+          <FormSubmit
+            className="rounded-none w-full h-auto  p-2 px-5 justify-start font-normal text-sm"
+            variant="ghost"
+          >
+            Duplicate list
+          </FormSubmit>
+        </form>
       </PopoverContent>
     </Popover>
   );
