@@ -74,7 +74,10 @@ export const ListForm = () => {
           />
           <input hidden defaultValue={params.boardId} name="boardId" />
           <div className="flex items-center gap-x-1  ">
-            <FormSubmit>Add list</FormSubmit>
+            <FormSubmit>
+              <IconPlus className="h-4 w-4" />
+              Add list
+            </FormSubmit>
             <Button size="sm" variant="ghost" onClick={disableEditing}>
               <IconX className="h-5 w-5" />
             </Button>

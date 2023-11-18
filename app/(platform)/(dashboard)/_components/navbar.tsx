@@ -20,8 +20,9 @@ const Navbar = () => {
           <Button
             variant="primary"
             size="sm"
-            className="rounded-sm hidden md:block h-auto py-1.5 px-2"
+            className="rounded-sm hidden md:flex h-auto py-1.5 px-2  items-center"
           >
+            <IconPlus className="h-4 w-4 mr-1" />
             Create
           </Button>
         </FormPopover>

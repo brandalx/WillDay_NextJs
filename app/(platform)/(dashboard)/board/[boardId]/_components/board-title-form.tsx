@@ -9,6 +9,7 @@ import { useAction } from "@/hooks/use-action";
 import { ElementRef, useRef, useState } from "react";
 import { toast } from "sonner";
 import { error } from "console";
+import { IconEdit } from "@tabler/icons-react";
 interface BoardTitleFormProps {
   data: Board;
 }
@@ -75,6 +76,7 @@ export const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
       variant="transparent"
       className="font-bold text-lg h-auto w-auto p-1 px-2"
     >
+      <IconEdit className="h-4 w-4 mr-2" />
       {title}
     </Button>
   );
