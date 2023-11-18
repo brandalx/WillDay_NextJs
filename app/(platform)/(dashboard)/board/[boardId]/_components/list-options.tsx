@@ -9,7 +9,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Button } from "@/components/ui/button";
-import { IconDots } from "@tabler/icons-react";
+import { IconDots, IconX } from "@tabler/icons-react";
 interface ListOptionsProps {
   data: List;
   onAddCard: () => void;
@@ -26,6 +26,14 @@ const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
         <div className="text-sm font-medium text-center text-neutral-600 pb-4">
           List actions
         </div>
+        <PopoverClose asChild>
+          <Button
+            className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600"
+            variant="ghost"
+          >
+            <IconX className="h-4 w-4 " />
+          </Button>
+        </PopoverClose>
       </PopoverContent>
     </Popover>
   );
