@@ -20,6 +20,8 @@ import React from "react";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
 import { cn } from "@/lib/utils";
+import { FormErrors } from "./form-errors";
+import { useFormStatus } from "react-dom";
 
 export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
   (
@@ -38,6 +40,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
     },
     ref
   ) => {
+    const { pending } = useFormStatus();
     return (
       <div className="space-y-2 w-full">
         <div className="space-y-1 w-full">
@@ -53,7 +56,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
             id={id}
             placeholder={placeholder}
             required={required}
-            disabled={disabled}
+            disabled={pending || disabled}
             onBlur={onBlur}
             onClick={onClick}
             onKeyDown={onKeyDown}
@@ -64,6 +67,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextAreaProps>(
             aria-describedby={`${id}-error`}
           />
         </div>
+        <FormErrors id={id} errors={errors} />
       </div>
     );
   }
