@@ -11,6 +11,7 @@ import ListOptions from "./list-options";
 import { IconFileInvoice, IconFileSmile } from "@tabler/icons-react";
 
 interface ListHeaderProps {
+  onAddCard: () => void;
   data: List;
 }
 const ListHeader = ({ data }: ListHeaderProps) => {
