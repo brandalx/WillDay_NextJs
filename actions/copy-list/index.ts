@@ -6,7 +6,7 @@ import { c } from "@/lib/console-log";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { DeleteList } from "./schema";
+import { CopyList } from "./schema";
 
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -19,11 +19,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   let list;
 
   try {
-    console.log("incoming id: " + id);
-    console.log("incoming boardId: " + boardId);
-
-    console.log("incoming orgId: " + orgId);
-    list = await db.list.delete({
+    const listToCopy = await db.list.findUnique({
       where: {
         id,
         boardId,
@@ -31,7 +27,12 @@ const handler = async (data: InputType): Promise<ReturnType> => {
           orgId,
         },
       },
+      include: {
+        cards: true,
+      },
     });
+
+    if (!listToCopy) return { error: "List not found" };
   } catch (error) {
     c("ekekek");
     c(error);
@@ -43,4 +44,4 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   return { data: list };
 };
 
-export const deleteList = createSafeAction(DeleteList, handler);
+export const copyList = createSafeAction(CopyList, handler);
