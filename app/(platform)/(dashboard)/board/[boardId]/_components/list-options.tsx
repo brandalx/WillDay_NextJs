@@ -19,12 +19,26 @@ import {
   IconX,
 } from "@tabler/icons-react";
 import { FormSubmit } from "@/components/form/form-submit";
+import { useAction } from "@/hooks/use-action";
+import { DeleteList } from "@/actions/delete-list/schema";
 import { Separator } from "@/components/ui/separator";
+import { deleteList } from "@/actions/delete-list";
+import { toast } from "sonner";
+import { error } from "console";
 interface ListOptionsProps {
   data: List;
   onAddCard: () => void;
 }
 const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
+  const { execute: executeDelete } = useAction(deleteList, {
+    onSuccess: () => {
+      toast.success(`List "${data.title}" deleted successfully`);
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
   return (
     <Popover>
       <PopoverTrigger asChild>
