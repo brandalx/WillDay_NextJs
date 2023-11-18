@@ -30,7 +30,7 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
       onSuccess: (data: any) => {
         toast.success(`Card "${data.title}" created`);
         formRef.current?.reset();
-        disableEditing();
+        // disableEditing();
       },
       onError: (error) => {
         toast.error(error);
