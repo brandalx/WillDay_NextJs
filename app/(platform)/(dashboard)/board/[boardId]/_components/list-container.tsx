@@ -35,7 +35,7 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
     },
   });
 
-  const { execute: executeUpdateCardOrder } = useAction(updateListOrder, {
+  const { execute: executeUpdateCardOrder } = useAction(updateCardOrder, {
     onSuccess: () => {
       toast.success("Card reordered");
     },
@@ -116,7 +116,7 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
         sourceList.cards = reorderedCards;
 
         setOrderedData(newOrderedData);
-
+        executeUpdateCardOrder({ boardId: boardId, items: reorderedCards });
         // User moves the card to another list
       } else {
         // Remove card from the source list
