@@ -2,15 +2,18 @@
 import { Card } from "@prisma/client";
 import React from "react";
 import { Draggable } from "@hello-pangea/dnd";
+import { useCardModal } from "@/hooks/use-card-modal";
 interface CardItemProps {
   index: number;
   data: Card;
 }
 const CardItem = ({ data, index }: CardItemProps) => {
+  const cardModal = useCardModal();
   return (
     <Draggable draggableId={data.id} index={index}>
       {(provided) => (
         <div
+          onClick={() => cardModal.onOpen(data.id)}
           {...provided.draggableProps}
           {...provided.dragHandleProps}
           ref={provided.innerRef}
