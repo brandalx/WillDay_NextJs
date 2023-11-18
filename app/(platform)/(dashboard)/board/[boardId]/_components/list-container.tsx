@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { ListForm } from "./list-form";
 import ListItem from "./list-item";
 import { useAction } from "@/hooks/use-action";
+import { updateCardOrder } from "@/actions/update-card-order";
 import { UpdateListOrder } from "@/actions/update-list-order/schema";
 import { updateListOrder } from "@/actions/update-list-order";
 import { toast } from "sonner";
@@ -28,6 +29,15 @@ const ListContainer = ({ data, boardId }: ListContainerProps) => {
   const { execute: executeUpdateListOrder } = useAction(updateListOrder, {
     onSuccess: () => {
       toast.success("List reordered");
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const { execute: executeUpdateCardOrder } = useAction(updateListOrder, {
+    onSuccess: () => {
+      toast.success("Card reordered");
     },
     onError: (error) => {
       toast.error(error);
