@@ -1,6 +1,7 @@
 "use client";
 
 import { FormInput } from "@/components/form/form-input";
+import { Skeleton } from "@/components/ui/skeleton";
 import { CardWithList } from "@/types";
 import { IconLayout2 } from "@tabler/icons-react";
 import React, { useState } from "react";
@@ -20,6 +21,18 @@ export const Header = ({ data }: HeaderProps) => {
             id="title"
           />
         </form>
+      </div>
+    </div>
+  );
+};
+
+Header.Skeleton = function HeaderSkeleton() {
+  return (
+    <div className="flex items-start gap-x-3 mb-6">
+      <Skeleton className="h-6 w-6 mt-1 bg-neutral-200 " />
+      <div>
+        <Skeleton className="w-24 h-6 mb-1 bg-neutral-200" />
+        <Skeleton className="w-24 h-4 bg-neutral-200" />
       </div>
     </div>
   );
