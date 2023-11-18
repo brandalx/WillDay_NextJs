@@ -5,7 +5,7 @@ import { FormTextarea } from "@/components/form/form-textarea";
 import { useAction } from "@/hooks/use-action";
 import { createCard } from "@/actions/create-card";
 import { Button } from "@/components/ui/button";
-import { IconPlus, IconX } from "@tabler/icons-react";
+import { IconCheck, IconPlus, IconX } from "@tabler/icons-react";
 import { useParams } from "next/navigation";
 import { useOnClickOutside, useEventListener } from "usehooks-ts";
 import React, {
@@ -77,7 +77,7 @@ const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
           <input hidden id="listId" name="listId" defaultValue={listId} />
           <div className="flex items-center gap-x-1 ">
             <FormSubmit>
-              <IconPlus className="h-4 w-4 mr-2 " />
+              <IconCheck className="h-4 w-4 mr-2 " />
               Add card
             </FormSubmit>
             <Button onClick={disableEditing} size="sm" variant="ghost">
