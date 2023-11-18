@@ -2,9 +2,17 @@
 
 import { FormSubmit } from "@/components/form/form-submit";
 import { FormTextarea } from "@/components/form/form-textarea";
+import { useAction } from "@/hooks/use-action";
+import { createCard } from "@/actions/create-card";
 import { Button } from "@/components/ui/button";
 import { IconPlus, IconX } from "@tabler/icons-react";
-import React, { forwardRef } from "react";
+import { useParams } from "next/navigation";
+import React, {
+  forwardRef,
+  useRef,
+  ElementRef,
+  KeyboardEventHandler,
+} from "react";
 interface CardFormProps {
   listId: string;
   isEditing: boolean;
@@ -13,6 +21,14 @@ interface CardFormProps {
 }
 const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
   ({ listId, disableEditing, enableEditing, isEditing }, ref) => {
+    const params = useParams();
+    const formRef = useRef<ElementRef<"form">>(null);
+    const { execute, fieldErrors } = useAction(createCard);
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        disableEditing();
+      }
+    };
     if (isEditing) {
       return (
         <form className="m-1 py-0.5 px-1 space-y-4">
