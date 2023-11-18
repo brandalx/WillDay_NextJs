@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
-import { CardModal } from "../card-modal";
+import { CardModal } from "../modals/card-modal";
 
 export const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);

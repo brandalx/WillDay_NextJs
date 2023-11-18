@@ -1,4 +1,4 @@
-import { ModalProvider } from "@/components/modals/providers/modal-provider";
+import { ModalProvider } from "@/components/providers/modal-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import React, { ReactNode } from "react";
 import { Toaster } from "sonner";
