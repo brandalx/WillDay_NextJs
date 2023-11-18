@@ -36,6 +36,16 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       orderBy: { order: "desc" },
       select: { order: true },
     });
+
+    const newOrder = lastCard ? lastCard.order + 1 : 1;
+
+    card = await db.card.create({
+      data: {
+        title,
+        listId,
+        order: newOrder,
+      },
+    });
   } catch (error) {
     c(error);
     return {
@@ -43,7 +53,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
   revalidatePath(`/board/${boardId}`);
-  return { data: list };
+  return { data: card };
 };
 
 export const createCard = createSafeAction(CreateCard, handler);
