@@ -26,6 +26,7 @@ import { deleteList } from "@/actions/delete-list";
 import { toast } from "sonner";
 import { error } from "console";
 import { ElementRef, useRef } from "react";
+import { copyList } from "@/actions/copy-list";
 interface ListOptionsProps {
   data: List;
   onAddCard: () => void;
@@ -42,10 +43,26 @@ const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
     },
   });
 
+  const { execute: executeCopy } = useAction(copyList, {
+    onSuccess: () => {
+      toast.success(`List "${data.title}" duplicated successfully`);
+      closeRef.current?.click();
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
   const onDelete = (formData: FormData) => {
     const id = formData.get("id") as string;
     const boardId = formData.get("boardId") as string;
     executeDelete({ id, boardId });
+  };
+
+  const onCopy = (formData: FormData) => {
+    const id = formData.get("id") as string;
+    const boardId = formData.get("boardId") as string;
+    executeCopy({ id, boardId });
   };
 
   return (
@@ -76,7 +93,7 @@ const ListOptions = ({ data, onAddCard }: ListOptionsProps) => {
           <IconPlus className="h-4 w-4 mr-2 " />
           Add card
         </Button>
-        <form>
+        <form action={onCopy}>
           <input hidden name="id" id="id" defaultValue={data.id} />
           <input
             hidden
