@@ -15,8 +15,26 @@ interface ActionsProps {
 
 const Actions = ({ data }: ActionsProps) => {
   const params = useParams();
-  const { execute: executeCopyCard } = useAction(copyCard);
-  const { execute: executeDeleteCard } = useAction(deleteCard);
+  const { execute: executeCopyCard, isLoading: isLoadingCopy } =
+    useAction(copyCard);
+  const { execute: executeDeleteCard, isLoading: isLoadingDelete } =
+    useAction(deleteCard);
+
+  const onCopy = () => {
+    const boardId = params.boardId as string;
+    executeCopyCard({
+      id: data.id,
+      boardId,
+    });
+  };
+
+  const onDelete = () => {
+    const boardId = params.boardId as string;
+    executeDeleteCard({
+      id: data.id,
+      boardId,
+    });
+  };
 
   return (
     <div className="space-y-2 mt-2">
