@@ -5,12 +5,29 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { CardWithList } from "@/types";
 import { IconLayout2 } from "@tabler/icons-react";
 import { useQueryClient } from "@tanstack/react-query";
+import { useAction } from "@/hooks/use-action";
+import { updateCard } from "@/actions/update-card";
 import { useParams } from "next/navigation";
 import React, { ElementRef, useRef, useState } from "react";
+import { toast } from "sonner";
+import { error } from "console";
+
 interface HeaderProps {
   data: CardWithList;
 }
 export const Header = ({ data }: HeaderProps) => {
+  const { execute } = useAction(updateCard, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["card", data.id],
+      });
+      toast.success(`Renamed to "${data.title}"`);
+      setTitle(data.title);
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
   const queryClient = useQueryClient();
   const params = useParams();
   const inputRef = useRef<ElementRef<"input">>(null);
@@ -21,6 +38,16 @@ export const Header = ({ data }: HeaderProps) => {
 
   const onSubmit = (formData: FormData) => {
     console.log(formData.get("title"));
+    const title = formData.get("title") as string;
+    const boardId = params.boardId as string;
+    if (title === data.title) {
+      return;
+    }
+    execute({
+      title,
+      boardId,
+      id: data.id,
+    });
   };
 
   return (
