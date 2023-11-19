@@ -11,6 +11,11 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useRef, ElementRef } from "react";
 import { useEventListener, useOnClickOutside } from "usehooks-ts";
+import { useAction } from "@/hooks/use-action";
+import { updateCard } from "@/actions/update-card";
+import { toast } from "sonner";
+import { error } from "console";
+
 interface DescriptionProps {
   data: CardWithList;
 }
@@ -43,10 +48,23 @@ export const Description = ({ data }: DescriptionProps) => {
   useEventListener("keydown", onKeyDown);
   useOnClickOutside(formRef, disableEditing);
 
+  const { execute, fieldErrors } = useAction(updateCard, {
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({
+        queryKey: ["card", data.id],
+      });
+      toast.success(`Description for "${data.title}" is updated`);
+      disableEditing();
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
   const onSubmit = (formData: FormData) => {
     const description = formData.get("description") as string;
     const boardId = params.boardId as string;
-    //todo : execute func
+    execute({ id: data.id, description, boardId });
   };
   return (
     <div className="flex items-start gap-x-3 w-full">
@@ -54,8 +72,10 @@ export const Description = ({ data }: DescriptionProps) => {
       <div className="w-full">
         <p className="font-semibold text-neutral-700 mb-2"> Description</p>
         {isEditing ? (
-          <form ref={formRef} className="space-y-2 ">
+          <form action={onSubmit} ref={formRef} className="space-y-2 ">
             <FormTextarea
+              ref={textareaRef}
+              errors={fieldErrors}
               id="description"
               className="w-full mt-2"
               placeholder="Add your description here..."
@@ -85,7 +105,7 @@ export const Description = ({ data }: DescriptionProps) => {
           </div>
         )}
       </div>
-      {data.description}
+      {/* {data.description} */}
     </div>
   );
 };
