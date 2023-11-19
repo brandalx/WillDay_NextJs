@@ -30,13 +30,24 @@ export const useAction = <TInput, TOutput>(
       try {
         const result = await action(input);
 
+        // Check if the result is undefined or null
         if (!result) {
           return;
         }
 
         setFieldErrors(result.fieldErrors);
 
-        if (result.error) {
+        if (result.fieldErrors && Object.keys(result.fieldErrors).length > 0) {
+          const fieldErrors = result.fieldErrors as FieldErrors<TInput>;
+          const validationErrorMessage = Object.keys(fieldErrors)
+            .map((key) => {
+              const message = fieldErrors[key]?.join(", ");
+              return `${key}: ${message}`;
+            })
+            .join("; ");
+          setError(validationErrorMessage);
+          options.onError?.(validationErrorMessage);
+        } else if (result.error) {
           setError(result.error);
           options.onError?.(result.error);
         }

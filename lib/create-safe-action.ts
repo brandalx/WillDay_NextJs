@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export type FieldErrors<T> = {
-  [K in keyof T]?: string[];
+  [key: string]: string[] | undefined; // This allows for indexing with any string
 };
 export type ActionState<TInput, TOutput> = {
   fieldErrors?: FieldErrors<TInput>;

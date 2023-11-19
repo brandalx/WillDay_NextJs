@@ -66,7 +66,11 @@ export const NavItem = ({
     router.push(href);
   };
   return (
-    <AccordionItem value={organization.id} className="border-none">
+    <AccordionItem
+      defaultValue={organization.id}
+      value={organization.id}
+      className="border-none"
+    >
       <AccordionTrigger
         onClick={() => onExpand(organization.id)}
         className={cn(
