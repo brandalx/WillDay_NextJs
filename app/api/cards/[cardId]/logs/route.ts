@@ -1,3 +1,4 @@
+import { c } from "@/lib/console-log";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { ENTITY_TYPE } from "@prisma/client";
@@ -9,7 +10,7 @@ export async function GET(
 ) {
   try {
     const { userId, orgId } = auth();
-    if (!userId || orgId) {
+    if (!userId || !orgId) {
       return new NextResponse("Unauthorized", { status: 401 });
     }
 
@@ -24,6 +25,8 @@ export async function GET(
       },
       take: 3,
     });
+    c("okkkk");
+    return NextResponse.json(auditLogs);
   } catch (error) {
     return new NextResponse("Internal Error,", { status: 500 });
   }
