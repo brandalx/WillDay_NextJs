@@ -40,6 +40,11 @@ export const Description = ({ data }: DescriptionProps) => {
   useEventListener("keydown", onKeyDown);
   useOnClickOutside(formRef, disableEditing);
 
+  const onSubmit = (formData: FormData) => {
+    const description = formData.get("description") as string;
+    const boardId = params.boardId as string;
+    //todo : execute func
+  };
   return (
     <div className="flex items-start gap-x-3 w-full">
       <IconAlignLeft className="h-5 w-5 mt-0.5 text-neutral-700 " />
