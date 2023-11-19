@@ -1,5 +1,5 @@
 import { z } from "zod";
-export const CopyCard = z.object({
+export const DeleteCard = z.object({
   id: z.string(),
   boardId: z.string(),
 });
