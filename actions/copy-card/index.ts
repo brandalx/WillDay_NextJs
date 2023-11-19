@@ -41,15 +41,25 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       },
       select: { order: true },
     });
+
+    const newOrder = lastCard ? lastCard.order + 1 : 1;
+
+    card = await db.card.create({
+      data: {
+        title: `${cardToCopy.title} - Copy`,
+        description: cardToCopy.description,
+        order: newOrder,
+        listId: cardToCopy.listId,
+      },
+    });
   } catch (error) {
-    c("ekekek");
     c(error);
     return {
       error: "Failed to copy",
     };
   }
   revalidatePath(`/board/${boardId}`);
-  return { data: list };
+  return { data: card };
 };
 
 export const copyList = createSafeAction(CopyCard, handler);
