@@ -47,7 +47,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         line_items: [
           {
             price_data: {
-              currency: "US",
+              currency: "USD",
               product_data: {
                 name: "WillDay Unlimited",
                 description: "WillDay Unlimited boards for your organization",
@@ -65,6 +65,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       url = stripeSession.url || "";
     }
   } catch (error) {
+    c(error);
     return { error: "Something went wrong, please try again" };
   }
   revalidatePath(`/organization/${orgId}`);
