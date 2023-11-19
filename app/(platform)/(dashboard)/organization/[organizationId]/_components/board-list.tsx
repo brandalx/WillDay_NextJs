@@ -5,6 +5,8 @@ import React from "react";
 import { db } from "@/lib/db";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
+import { MAX_FREE_BOARDS } from "@/constants/boards";
+import { getAvailableCount } from "@/lib/orgLimits";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
 const BoardList = async () => {
@@ -21,6 +23,8 @@ const BoardList = async () => {
       createdAt: "desc",
     },
   });
+  const availableCount = await getAvailableCount();
+
   return (
     <div className="space-y-4 ">
       <div className="flex items-center font-semibold text-lg text-neutral-700">
@@ -48,7 +52,9 @@ const BoardList = async () => {
             <div>
               <IconPlus className="text-rose-500" />
             </div>
-            <span className="text-[10px]">5 boards remaining</span>
+            <span className="text-[10px]">
+              {`${MAX_FREE_BOARDS - availableCount}`} remaining
+            </span>
             <Hint
               sideOffset={40}
               description={`Free workspaces can have up to 5 open boards. For unlimited experience upgrade this workspace.`}
