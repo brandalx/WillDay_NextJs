@@ -11,8 +11,8 @@ export const ProModal = () => {
 
   return (
     <Dialog open={true} onOpenChange={proModal.onClose}>
-      <DialogContent className="max-w-md p-0 overflow-hidden">
-        <div className="aspect-video relative flex items-center justify-center">
+      <DialogContent className="max-w-md  border-none p-0 overflow-hidden rounded-lg">
+        <div className="aspect-video  relative flex items-center justify-center">
           <Image
             src="/subscription.svg"
             alt="Hero"
@@ -22,17 +22,17 @@ export const ProModal = () => {
         </div>
         <div className="text-neutral-700 mx-auto space-y-6 p-6">
           <h2 className="font-semibold text-xl">
-            Upgrade to Taskify Pro Today!
+            Upgrade to WillDay Unlimited Plan Today!
           </h2>
           <p className="text-xs font-semibold text-neutral-600">
-            Explore the best of Taskify
+            Explore the best of WillDay
           </p>
           <div className="pl-3">
             <ul className="text-sm list-disc">
               <li>Unlimited boards</li>
               <li>Advanced checklists</li>
               <li>Admin and security features</li>
-              <li>And more!</li>
+              <li>And many more!</li>
             </ul>
           </div>
           <Button className="w-full" variant="primary">
