@@ -1,8 +1,13 @@
 "use client";
 import { Skeleton } from "@/components/ui/skeleton";
+import { CardWithList } from "@/types";
 import React from "react";
 
-const Actions = () => {
+interface ActionsProps {
+  data: CardWithList;
+}
+
+const Actions = ({ data }: ActionsProps) => {
   return (
     <div>
       <p>Actions</p>
