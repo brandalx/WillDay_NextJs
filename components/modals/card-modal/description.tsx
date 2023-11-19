@@ -3,6 +3,8 @@
 import { Skeleton } from "@/components/ui/skeleton";
 import { CardWithList } from "@/types";
 import { IconAlignLeft } from "@tabler/icons-react";
+import { useQueryClient } from "@tanstack/react-query";
+import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useRef, ElementRef } from "react";
 interface DescriptionProps {
@@ -10,6 +12,13 @@ interface DescriptionProps {
 }
 
 export const Description = ({ data }: DescriptionProps) => {
+  const [isEditing, setIsEditing] = useState(false);
+  const params = useParams();
+  const queryClient = useQueryClient();
+  const textareaRef = useRef<ElementRef<"textarea">>(null);
+
+  const formRef = useRef<ElementRef<"form">>(null);
+
   return (
     <div className="flex items-start gap-x-3 w-full">
       <IconAlignLeft className="h-5 w-5 mt-0.5 text-neutral-700 " />
