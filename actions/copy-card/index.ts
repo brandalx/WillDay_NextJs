@@ -6,7 +6,7 @@ import { c } from "@/lib/console-log";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { createSafeAction } from "@/lib/create-safe-action";
-import { CopyList } from "./schema";
+import { CopyCard } from "./schema";
 import { ReturnType } from "./types";
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
@@ -16,51 +16,21 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     };
   }
   const { id, boardId } = data;
-  let list;
+  let card;
 
   try {
-    const listToCopy = await db.list.findUnique({
+    const cardToCopy = await db.card.findUnique({
       where: {
         id,
-        boardId,
-        board: {
-          orgId,
-        },
-      },
-      include: {
-        cards: true,
-      },
-    });
-
-    if (!listToCopy) return { error: "List not found" };
-
-    const lastList = await db.list.findFirst({
-      where: { boardId },
-      orderBy: { order: "desc" },
-      select: { order: true },
-    });
-
-    const newOrder = lastList ? lastList.order + 1 : 1;
-
-    list = await db.list.create({
-      data: {
-        boardId: listToCopy.boardId,
-        title: `${listToCopy.title} - Copy`,
-        order: newOrder,
-        cards: {
-          createMany: {
-            data: listToCopy.cards.map((card) => ({
-              title: card.title,
-              description: card.description,
-              order: card.order,
-            })),
+        list: {
+          board: {
+            orgId,
           },
         },
       },
-      include: {
-        cards: true,
-      },
     });
+
+    if (!cardToCopy) return { error: "Card not found" };
   } catch (error) {
     c("ekekek");
     c(error);
@@ -72,4 +42,4 @@ const handler = async (data: InputType): Promise<ReturnType> => {
   return { data: list };
 };
 
-export const copyList = createSafeAction(CopyList, handler);
+export const copyList = createSafeAction(CopyCard, handler);
