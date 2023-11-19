@@ -31,6 +31,16 @@ const handler = async (data: InputType): Promise<ReturnType> => {
     });
 
     if (!cardToCopy) return { error: "Card not found" };
+
+    const lastCard = await db.card.findFirst({
+      where: {
+        listId: cardToCopy.listId,
+      },
+      orderBy: {
+        order: "desc",
+      },
+      select: { order: true },
+    });
   } catch (error) {
     c("ekekek");
     c(error);
