@@ -1,7 +1,7 @@
 "use server";
 
 import { auth } from "@clerk/nextjs";
-import { InputType } from "../update-board/types";
+import { InputType } from "./types";
 import { c } from "@/lib/console-log";
 import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
@@ -16,27 +16,31 @@ const handler = async (data: InputType): Promise<ReturnType> => {
       error: "Unauthorized",
     };
   }
-  const { title, id } = data;
-  let board;
+  const { id, boardId, ...values } = data;
+  let card;
 
   try {
-    board = await db.board.update({
+    card = await db.card.update({
       where: {
         id,
-        orgId,
+        list: {
+          board: {
+            orgId,
+          },
+        },
       },
       data: {
-        title,
+        ...values,
       },
     });
   } catch (error) {
     c(error);
     return {
-      error: "failed to update",
+      error: "Failed to update",
     };
   }
   revalidatePath(`/board/${id}`);
-  return { data: board };
+  return { data: card };
 };
 
-export const updateBoard = createSafeAction(UpdateBoard, handler);
+export const updateCard = createSafeAction(UpdateCard, handler);
