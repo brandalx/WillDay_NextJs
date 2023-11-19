@@ -9,6 +9,7 @@ import { MAX_FREE_BOARDS } from "@/constants/boards";
 import { getAvailableCount } from "@/lib/orgLimits";
 import Link from "next/link";
 import { Skeleton } from "@/components/ui/skeleton";
+import { checkSubscription } from "@/lib/subscription";
 const BoardList = async () => {
   const { orgId } = auth();
   if (!orgId) {
@@ -24,6 +25,7 @@ const BoardList = async () => {
     },
   });
   const availableCount = await getAvailableCount();
+  const isPro = await checkSubscription();
 
   return (
     <div className="space-y-4 ">
@@ -53,7 +55,9 @@ const BoardList = async () => {
               <IconPlus className="text-rose-500" />
             </div>
             <span className="text-[10px]">
-              {`${MAX_FREE_BOARDS - availableCount}`} remaining
+              {isPro
+                ? "Unlimited"
+                : `${MAX_FREE_BOARDS - availableCount} remaining`}
             </span>
             <Hint
               sideOffset={40}
