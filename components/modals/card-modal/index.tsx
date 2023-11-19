@@ -31,7 +31,7 @@ export const CardModal = () => {
               )}
             </div>
           </div>
-          <Actions />
+          {!cardData ? <Actions.Skeleton /> : <Actions />}
         </div>
       </DialogContent>
     </Dialog>
