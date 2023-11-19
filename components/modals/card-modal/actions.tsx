@@ -3,13 +3,21 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { CardWithList } from "@/types";
 import { IconCopy, IconTrash } from "@tabler/icons-react";
+import { useAction } from "@/hooks/use-action";
+import { copyCard } from "@/actions/copy-card/index";
+import { deleteCard } from "@/actions/delete-card";
 import React from "react";
+import { useParams } from "next/navigation";
 
 interface ActionsProps {
   data: CardWithList;
 }
 
 const Actions = ({ data }: ActionsProps) => {
+  const params = useParams();
+  const { execute: executeCopyCard } = useAction(copyCard);
+  const { execute: executeDeleteCard } = useAction(deleteCard);
+
   return (
     <div className="space-y-2 mt-2">
       <p className="text-xs font-semibold">Actions</p>
