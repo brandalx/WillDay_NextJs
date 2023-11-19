@@ -10,7 +10,7 @@ export const ProModal = () => {
   const proModal = useProModal();
 
   return (
-    <Dialog open={true} onOpenChange={proModal.onClose}>
+    <Dialog open={proModal.isOpen} onOpenChange={proModal.onClose}>
       <DialogContent className="max-w-md  border-none p-0 overflow-hidden rounded-lg">
         <div className="aspect-video  relative flex items-center justify-center">
           <Image
