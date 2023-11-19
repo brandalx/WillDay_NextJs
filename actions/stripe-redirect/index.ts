@@ -1,6 +1,6 @@
 "use server";
 
-import { auth } from "@clerk/nextjs";
+import { auth, currentUser } from "@clerk/nextjs";
 import { InputType } from "./types";
 import { c } from "@/lib/console-log";
 import { db } from "@/lib/db";
@@ -14,7 +14,8 @@ import { absoluteUrl } from "@/lib/utils";
 import { stripe } from "@/lib/stripe";
 const handler = async (data: InputType): Promise<ReturnType> => {
   const { userId, orgId } = auth();
-  if (!userId || !orgId) {
+  const user = await currentUser();
+  if (!userId || !orgId || !user) {
     return {
       error: "Unauthorized",
     };
@@ -35,8 +36,39 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         return_url: settingUrl,
       });
       url = stripeSession.url;
+    } else {
+      const stripeSession = await stripe.checkout.sessions.create({
+        success_url: settingUrl,
+        cancel_url: settingUrl,
+        payment_method_types: ["card"],
+        mode: "subscription",
+        billing_address_collection: "auto",
+        customer_email: user.emailAddresses[0].emailAddress,
+        line_items: [
+          {
+            price_data: {
+              currency: "US",
+              product_data: {
+                name: "WillDay Unlimited",
+                description: "WillDay Unlimited boards for your organization",
+              },
+              unit_amount: 2000,
+              recurring: {
+                interval: "month",
+              },
+            },
+            quantity: 1,
+          },
+        ],
+        metadata: { orgId },
+      });
+      url = stripeSession.url || "";
     }
-  } catch (error) {}
+  } catch (error) {
+    return { error: "Something went wrong, please try again" };
+  }
+  revalidatePath(`/organization/${orgId}`);
+  return { data: url };
 };
 
 export const stripeRedirect = createSafeAction(StripeRedirect, handler);
