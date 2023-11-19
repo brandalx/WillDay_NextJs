@@ -7,6 +7,7 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { useState } from "react";
 import { useRef, ElementRef } from "react";
+import { useEventListener, useOnClickOutside } from "usehooks-ts";
 interface DescriptionProps {
   data: CardWithList;
 }
@@ -18,6 +19,26 @@ export const Description = ({ data }: DescriptionProps) => {
   const textareaRef = useRef<ElementRef<"textarea">>(null);
 
   const formRef = useRef<ElementRef<"form">>(null);
+
+  const enableEditing = () => {
+    setIsEditing(true);
+    setTimeout(() => {
+      textareaRef.current?.focus();
+    });
+  };
+
+  const disableEditing = () => {
+    setIsEditing(false);
+  };
+
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      disableEditing();
+    }
+  };
+
+  useEventListener("keydown", onKeyDown);
+  useOnClickOutside(formRef, disableEditing);
 
   return (
     <div className="flex items-start gap-x-3 w-full">
