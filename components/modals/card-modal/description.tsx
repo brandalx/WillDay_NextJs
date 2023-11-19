@@ -2,13 +2,29 @@
 
 import { Skeleton } from "@/components/ui/skeleton";
 import { CardWithList } from "@/types";
-
+import { IconAlignLeft } from "@tabler/icons-react";
+import { useState } from "react";
+import { useRef, ElementRef } from "react";
 interface DescriptionProps {
   data: CardWithList;
 }
 
 export const Description = ({ data }: DescriptionProps) => {
-  return <div>description{data.description}</div>;
+  return (
+    <div className="flex items-start gap-x-3 w-full">
+      <IconAlignLeft className="h-5 w-5 mt-0.5 text-neutral-700 " />
+      <div className="w-full">
+        <p className="font-semibold text-neutral-700 mb-2"> Description</p>
+        <div
+          role="button"
+          className="min-h-[78px] bg-neutral-200 text-sm font-medium py-3 px-3.5 rounded-md"
+        >
+          {data.description || "Add your description here"}
+        </div>
+      </div>
+      {data.description}
+    </div>
+  );
 };
 
 Description.Skeleton = function DescriptionSkeleton() {
