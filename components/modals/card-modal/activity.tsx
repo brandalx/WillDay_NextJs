@@ -6,11 +6,11 @@ import React from "react";
 interface ActivityProps {
   items: AuditLog[];
 }
-export const Activity = () => {
+export const Activity = ({ items }: ActivityProps) => {
   return <div>activity</div>;
 };
 
-Activity.Skeleton = function ActivitySkeleton({ items }: ActivityProps) {
+Activity.Skeleton = function ActivitySkeleton() {
   return (
     <div className="flex items-start gap-x-3 w-full">
       <Skeleton className="bg-neutral-200 h-6 w-6" />
