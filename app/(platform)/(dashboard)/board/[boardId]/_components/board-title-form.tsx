@@ -4,7 +4,7 @@ import { FormInput } from "@/components/form/form-input";
 import { Button } from "@/components/ui/button";
 import { c } from "@/lib/console-log";
 import { Board } from "@prisma/client";
-import { UpdateBoard, updateBoard } from "@/actions/update-board";
+import { updateBoard } from "@/actions/update-board";
 import { useAction } from "@/hooks/use-action";
 import { ElementRef, useRef, useState } from "react";
 import { toast } from "sonner";
