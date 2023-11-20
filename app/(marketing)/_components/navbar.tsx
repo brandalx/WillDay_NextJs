@@ -20,7 +20,7 @@ export const Navbar = () => {
           </Button>
 
           <Button variant="primary" size="sm" asChild>
-            <Link href="/sign-in">Get WillDay for free</Link>
+            <Link href="/sign-up">Get WillDay for free</Link>
           </Button>
         </div>
       </div>
