@@ -5,7 +5,10 @@ import { useOrganization } from "@clerk/nextjs";
 import { IconCreditCard } from "@tabler/icons-react";
 import Image from "next/image";
 
-export const Info = () => {
+interface InfoProps {
+  isPro: boolean;
+}
+export const Info = ({ isPro }: InfoProps) => {
   const { organization, isLoaded } = useOrganization();
 
   if (!isLoaded) {
@@ -25,7 +28,7 @@ export const Info = () => {
         <p className="font-semibold text-xl">{organization?.name}</p>
         <div className="flex items-center text-xs text-muted-foreground">
           <IconCreditCard className="h-4 w-4 mr-1 " />
-          Free
+          {isPro ? "Unlimited" : "Free"}
         </div>
       </div>
     </div>
