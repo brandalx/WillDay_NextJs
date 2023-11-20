@@ -35,7 +35,7 @@ const MarketingPage = () => {
           <Image alt="logo" width={50} height={40} src="/logo-filled.svg" />
         </div>
         <h1 className="text-3xl md:text-6xl text-center text-neutral-800 mb-6">
-          Willday will help to organize
+          WillDay will help to organize
         </h1>
         <div className="text-3xl md:text-6xl bg-gradient-to-r from-fuchsia-600 to-pink-600 text-white px-4 p-2 rounded mb pb-4 ">
           {" "}
